@@ -4,14 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ChevronLeftIcon } from "@radix-ui/react-icons"
 import { useState } from "react";
 import Image from "next/image"
+
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState('');
     const [isLoading, setLoading] = useState(false);
+
+    const router = useRouter()
 
     const handleLogin = async () => {
         setError('');
@@ -70,48 +75,60 @@ export default function LoginPage() {
                 </div>
                 <div className="p-8">
                     <div className="mx-auto w-full flex-col justify-center space-y-6 sm:w-[350px]">
-                        {error && <p style={{ color: 'red' }}>{error}</p>}
-                        <form action={handleLogin}>
-                            <div className="grid gap-8">
-                                <div className="grid gap-1">
-                                    <Label className="sr-only" htmlFor="email">
-                                        Email
-                                    </Label>
-                                    <Input
-                                        id="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="name@example.com"
-                                        type="email"
-                                        autoCapitalize="none"
-                                        autoComplete="email"
-                                        autoCorrect="off"
-                                        disabled={isLoading}
-                                    />
+                        <div className="flex flex-row-reverse items-center justify-between">
+                            <Button onClick={() => router.push('/')} className="relative left-0 w-3/2 flex flex-start flex-row-reverse items-center gap-x-1" variant="ghost" size="icon">
+                                <div className="w-12 flex text-gray-500 text-base">
+                                    <span>Home</span>
                                 </div>
-                                <div className="grid gap-1">
-                                    <Label className="sr-only" htmlFor="password">
-                                        Password
-                                    </Label>
-                                    <Input
-                                        id="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="password"
-                                        type="password"
-                                        disabled={isLoading}
-                                    />
-                                </div>
-                                <Button disabled={isLoading}>
-                                    {isLoading && (
-                                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                                    )}
-                                    Sign In
-                                </Button>
+                                <ChevronLeftIcon className="h-4 w-4" />
+                            </Button>
+                            <div className="text-base">
+                                {error && <p style={{ color: 'red' }}>{error}</p>}
                             </div>
-                        </form>
+                        </div>
+                        <div className="h-[1/2] flex-col space-y-6">
+                            <form action={handleLogin}>
+                                <div className="grid gap-8">
+                                    <div className="grid gap-1">
+                                        <Label className="sr-only" htmlFor="email">
+                                            Email
+                                        </Label>
+                                        <Input
+                                            id="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="name@example.com"
+                                            type="email"
+                                            autoCapitalize="none"
+                                            autoComplete="email"
+                                            autoCorrect="off"
+                                            disabled={isLoading}
+                                        />
+                                    </div>
+                                    <div className="grid gap-1">
+                                        <Label className="sr-only" htmlFor="password">
+                                            Password
+                                        </Label>
+                                        <Input
+                                            id="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            placeholder="password"
+                                            type="password"
+                                            disabled={isLoading}
+                                        />
+                                    </div>
+                                    <Button disabled={isLoading}>
+                                        {isLoading && (
+                                            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                                        )}
+                                        Sign In
+                                    </Button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                </div >
             </div >
         </>
     )
