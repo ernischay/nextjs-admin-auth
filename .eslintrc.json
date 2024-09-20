@@ -5,6 +5,6 @@
   ],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
-    "no-empty-interface": false
+    "@typescript-eslint/no-empty-interface": "off"
   }
 }
