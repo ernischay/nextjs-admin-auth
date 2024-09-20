@@ -43,6 +43,7 @@ export async function login(email: string, password: string) {
 export async function logout() {
     // Destroy the session
     cookies().set("session", "", { expires: new Date(0) });
+    return { status: 200, message: "Success" };
 }
 
 export async function getSession() {

@@ -73,7 +73,7 @@ export default function LoginPage() {
                         Admin Panel
                     </div>
                 </div>
-                <div className="p-8">
+                <div className="p-8 h-2/3">
                     <div className="mx-auto w-full flex-col justify-center space-y-6 sm:w-[350px]">
                         <div className="flex flex-row-reverse items-center justify-between">
                             <Button onClick={() => router.push('/')} className="relative left-0 w-3/2 flex flex-start flex-row-reverse items-center gap-x-1" variant="ghost" size="icon">

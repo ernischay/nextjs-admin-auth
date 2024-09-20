@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { decrypt, updateSession } from "./lib";
 import { cookies } from 'next/headers';
 
-const protectedRoutes = ['/dashboard'];
+const protectedRoutes = ['/dashboard', '/projects', '/settings'];
 
 const publicRoutes = ['/', '/login'];
 
@@ -30,5 +30,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ['/dashboard', '/login'],
+    matcher: ['/dashboard', '/login', '/settings', '/projects'],
 }
