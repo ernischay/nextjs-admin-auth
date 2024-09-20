@@ -1,4 +1,4 @@
-import { login } from "@/app/lib/lib";
+import { login } from "../../../lib";
 import { NextResponse } from "next/server";
 
 // Handle login
