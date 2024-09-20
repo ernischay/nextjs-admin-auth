@@ -6,7 +6,7 @@ import { X, LogOutIcon, LucideArrowDownWideNarrow } from "lucide-react";
 import { useRouter, usePathname } from 'next/navigation'
 
 export default function Sidebar() {
-    const [width, setWidth] = useState<number>(window.innerWidth)
+    const [width, setWidth] = useState<number>(window ? window.innerWidth : 0)
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const router = useRouter()
 
