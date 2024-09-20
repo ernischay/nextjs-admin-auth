@@ -35,7 +35,7 @@ export default function Sidebar() {
             });
             const data = await res.json();
             if (data.status === 200) {
-                window.location.href = "/login"; // Redirect after successful login
+                router.push("/login")
             }
         } catch (err) {
             console.log(err)
