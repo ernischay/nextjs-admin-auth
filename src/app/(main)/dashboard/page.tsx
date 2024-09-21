@@ -18,6 +18,12 @@ import { useEffect, useState } from "react";
 export default function Dashboard() {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState<DashboardData | null>(null)
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
     const fetchDetails = async () => {
         try {
             setLoading(true)
@@ -43,6 +49,10 @@ export default function Dashboard() {
     useEffect(() => {
         fetchDetails()
     }, [])
+
+    if (!isMounted) {
+        return null;
+    }
 
     return (
         <div className='flex flex-1 md:flex-[0.8] flex-col text-[#121212] overflow-y-auto mb-[48px] p-[40px]'>
