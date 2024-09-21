@@ -20,8 +20,8 @@ export default function LoginPage() {
 
     const handleLogin = async () => {
         setError('');
-        setLoading(true)
         try {
+            setLoading(true)
             setTimeout(async () => {
                 const res = await fetch("/api/auth", {
                     method: "POST",

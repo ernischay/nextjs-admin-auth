@@ -46,16 +46,20 @@ export default function Sidebar() {
 
     return (
         <div className='flex items-center flex-[0.2] flex-col text-white h-screen bg-[#18181B] text-[24px]'>
-            <div className="flex items-center h-[70px] md:h-[100px] md:p-[10px] mt-[10px]">
-                <Logo />
+            <div className="flex w-full justify-center items-center">
+                <div className="flex ml-6 items-center h-[70px] w-full md:h-[100px] md:p-[10px] mt-[10px]">
+                    <Logo />
+                </div>
+                <div className="flex h-full items-end mb-6">
+                    {isOpen ? (
+                        <X className='flex mr-[25px] mb-[10px] ml-auto md:hidden' fill='#fff' width='24px' height='24px' onClick={() => setIsOpen(!isOpen)} />
+                    ) : (
+                        <LucideArrowDownWideNarrow className='flex mr-[25px] mb-[10px] ml-auto md:hidden' fill='#fff' width='24px' height='24px' onClick={() => setIsOpen(!isOpen)} />
+                    )}
+                </div>
             </div>
-            {isOpen ? (
-                <X className='flex mr-[25px] mb-[10px] ml-auto md:hidden' fill='#fff' width='24px' height='24px' onClick={() => setIsOpen(!isOpen)} />
-            ) : (
-                <LucideArrowDownWideNarrow className='flex mr-[25px] mb-[10px] ml-auto md:hidden' fill='#fff' width='24px' height='24px' onClick={() => setIsOpen(!isOpen)} />
-            )}
             {showSidebar && (
-                <ul className='w-full px-8 mt-[10px] flex flex-col gap-y-2'>
+                <ul className='w-full px-8 mt-[10px] pb-8 flex flex-col gap-y-2'>
                     <li
                         className={
                             pathname === '/dashboard'
