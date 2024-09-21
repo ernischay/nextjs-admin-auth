@@ -12,6 +12,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 
 import { DashboardData } from "@/types/dashboard";
+import { ExitFullScreenIcon, EnterFullScreenIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 
 
@@ -19,10 +20,25 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState<DashboardData | null>(null)
     const [isMounted, setIsMounted] = useState(false)
+    const [isFullScreen, setIsFullScreen] = useState(false)
 
     useEffect(() => {
         setIsMounted(true);
     }, []);
+
+    const toggleFullScreen = () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().then(() => {
+                setIsFullScreen(true)
+            })
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen().then(() => {
+                    setIsFullScreen(false)
+                })
+            }
+        }
+    }
 
     const fetchDetails = async () => {
         try {
@@ -58,7 +74,10 @@ export default function Dashboard() {
         <div className='flex flex-1 md:flex-[0.8] flex-col text-[#121212] overflow-y-auto mb-[48px] p-[40px]'>
             <div className="flex flex-col gap-y-6 ">
                 <div className="flex flex-col gap-y-8">
-                    <h2 className="text-3xl font-medium tracking-tight">Dashboard</h2>
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-3xl font-medium tracking-tight">Dashboard</h2>
+                        <div className="hidden md:block cursor-pointer" onClick={toggleFullScreen}>{isFullScreen ? <ExitFullScreenIcon height={"32px"} width={"32px"} /> : <EnterFullScreenIcon height={"32px"} width={"32px"} />}</div>
+                    </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                         {
                             <>
