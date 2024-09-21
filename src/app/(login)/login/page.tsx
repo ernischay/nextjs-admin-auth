@@ -115,6 +115,7 @@ export default function LoginPage() {
                                             onChange={(e) => setPassword(e.target.value)}
                                             placeholder="password"
                                             type="password"
+                                            autoComplete="password"
                                             disabled={isLoading}
                                         />
                                     </div>
