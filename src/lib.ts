@@ -14,14 +14,17 @@ export async function encrypt(payload: any) {
 }
 
 export async function decrypt(input: string): Promise<any> {
-    console.log(input)
     if (!input) {
         return null
     }
-    const { payload } = await jwtVerify(input, key, {
-        algorithms: ["HS256"],
-    });
-    return payload;
+    try {
+        const { payload } = await jwtVerify(input, key, {
+            algorithms: ["HS256"],
+        });
+        return payload;
+    } catch (error: any) {
+        console.log(error)
+    }
 }
 
 export async function login(email: string, password: string) {
@@ -60,14 +63,15 @@ export async function updateSession(request: NextRequest) {
 
     // Refresh the session so it doesn't expire
     const parsed = await decrypt(session);
-    parsed.expires = new Date(Date.now() + 12 * 60 * 60 * 1000);
     const res = NextResponse.next();
-    console.log(parsed.expires)
-    res.cookies.set({
-        name: "session",
-        value: await encrypt(parsed),
-        httpOnly: true,
-        expires: parsed.expires,
-    });
+    if (parsed) {
+        parsed.expires = new Date(Date.now() + 12 * 60 * 60 * 1000);
+        res.cookies.set({
+            name: "session",
+            value: await encrypt(parsed),
+            httpOnly: true,
+            expires: parsed.expires,
+        });
+    }
     return res;
 }
