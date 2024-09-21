@@ -11,7 +11,10 @@ export default function Home() {
     <>
       <div className="h-screen flex flex-col gap-y-16 justify-center items-center">
         Home Page!
-        <Button onClick={() => router.push('/login')}>
+        <Button onClick={() => {
+          router.refresh()
+          router.push('/login')
+        }}>
           Log In
         </Button>
       </div>

@@ -36,6 +36,7 @@ export default function Sidebar() {
             });
             const data = await res.json();
             if (data.status === 200) {
+                router.refresh()
                 router.push("/login")
             }
         } catch (err) {
@@ -61,7 +62,10 @@ export default function Sidebar() {
                                 ? 'text-base cursor-pointer text-primary px-[25px] py-[10px] bg-[white] hover:bg-[white] font-medium transition-colors hover:text-primary'
                                 : 'flex text-base items-center cursor-pointer px-[25px] py-[10px] hover:bg-[white] hover:text-primary'
                         }
-                        onClick={() => router.push('/dashboard')}
+                        onClick={() => {
+                            router.refresh()
+                            router.push('/dashboard')
+                        }}
                     >
                         <p className='flex ml-[15px] items-center'>Dashboard</p>
                     </li>
@@ -71,7 +75,10 @@ export default function Sidebar() {
                                 ? 'text-base cursor-pointer text-primary px-[25px] py-[10px] bg-[white] hover:bg-[white] font-medium transition-colors hover:text-primary'
                                 : 'flex text-base items-center cursor-pointer px-[25px] py-[10px] hover:bg-[white] hover:text-primary'
                         }
-                        onClick={() => router.push('/projects')}
+                        onClick={() => {
+                            router.refresh()
+                            router.push('/projects')
+                        }}
                     >
                         <p className='flex ml-[15px] items-center'>Projects</p>
                     </li>
@@ -81,7 +88,10 @@ export default function Sidebar() {
                                 ? 'text-base cursor-pointer text-primary px-[25px] py-[10px] bg-[white] hover:bg-[white] font-medium transition-colors hover:text-primary'
                                 : 'flex text-base items-center cursor-pointer px-[25px] py-[10px] hover:bg-[white] hover:text-primary'
                         }
-                        onClick={() => router.push('/settings')}
+                        onClick={() => {
+                            router.refresh()
+                            router.push('/settings')
+                        }}
                     >
                         <p className='flex ml-[15px] items-center'>Settings</p>
                     </li>
