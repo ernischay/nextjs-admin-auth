@@ -92,12 +92,12 @@ export default function Sidebar() {
                             initial={{ height: 0 }}  // Start with height 0
                             animate={{ height: isOpen ? 'auto' : 0 }} // Animate to auto when open, back to 0 when closed
                             exit={{ height: 0 }}
-                            transition={{ duration: 0.8 }}  // Smooth transition
+                            transition={{ duration: 0.5 }}  // Smooth transition
                         >
                             <motion.ul initial="hidden"
                                 animate="visible"
                                 exit="hidden"
-                                transition={{ duration: 0.8 }}
+                                transition={{ duration: 0.5 }}
                                 variants={navVariants} className='w-full px-8 mt-[10px] pb-8 flex flex-col gap-y-2'>
                                 <motion.li
                                     variants={itemVariants}
