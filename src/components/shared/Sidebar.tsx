@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import { X, LogOutIcon, LucideArrowDownWideNarrow } from "lucide-react";
 import { useRouter, usePathname } from 'next/navigation'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function Sidebar() {
     const [width, setWidth] = useState<number>(0)
     const [isOpen, setIsOpen] = useState<boolean>(false)
+
     const router = useRouter()
 
     const pathname = usePathname()
@@ -52,59 +54,69 @@ export default function Sidebar() {
                 </div>
                 <div className="flex h-full items-end mb-6">
                     {isOpen ? (
-                        <X className='flex mr-[25px] mb-[10px] ml-auto md:hidden' fill='#fff' width='24px' height='24px' onClick={() => setIsOpen(!isOpen)} />
+                        <X className='flex cursor-pointer mr-[25px] mb-[10px] ml-auto md:hidden' fill='#fff' width='24px' height='24px' onClick={() => setIsOpen(!isOpen)} />
                     ) : (
-                        <LucideArrowDownWideNarrow className='flex mr-[25px] mb-[10px] ml-auto md:hidden' fill='#fff' width='24px' height='24px' onClick={() => setIsOpen(!isOpen)} />
+                        <LucideArrowDownWideNarrow className='flex cursor-pointer mr-[25px] mb-[10px] ml-auto md:hidden' fill='#fff' width='24px' height='24px' onClick={() => setIsOpen(!isOpen)} />
                     )}
                 </div>
             </div>
-            {showSidebar && (
-                <ul className='w-full px-8 mt-[10px] pb-8 flex flex-col gap-y-2'>
-                    <li
-                        className={
-                            pathname === '/dashboard'
-                                ? 'text-base cursor-pointer text-primary px-[25px] py-[10px] bg-[white] hover:bg-[white] font-medium transition-colors hover:text-primary'
-                                : 'flex text-base items-center cursor-pointer px-[25px] py-[10px] hover:bg-[white] hover:text-primary'
-                        }
-                        onClick={() => {
-                            router.refresh()
-                            router.push('/dashboard')
-                        }}
+            <AnimatePresence>
+                {showSidebar && (
+                    <motion.aside
+                        className="w-full top-0 left-0 bg-background"
+                        initial={{ height: 0 }}  // Start with height 0
+                        animate={{ height: isOpen ? 'auto' : 0 }} // Animate to auto when open, back to 0 when closed
+                        exit={{ height: 0 }}
+                        transition={{ duration: 0.3 }}  // Smooth transition
                     >
-                        <p className='flex ml-[15px] items-center'>Dashboard</p>
-                    </li>
-                    <li
-                        className={
-                            pathname === '/projects'
-                                ? 'text-base cursor-pointer text-primary px-[25px] py-[10px] bg-[white] hover:bg-[white] font-medium transition-colors hover:text-primary'
-                                : 'flex text-base items-center cursor-pointer px-[25px] py-[10px] hover:bg-[white] hover:text-primary'
-                        }
-                        onClick={() => {
-                            router.refresh()
-                            router.push('/projects')
-                        }}
-                    >
-                        <p className='flex ml-[15px] items-center'>Projects</p>
-                    </li>
-                    <li
-                        className={
-                            pathname === '/settings'
-                                ? 'text-base cursor-pointer text-primary px-[25px] py-[10px] bg-[white] hover:bg-[white] font-medium transition-colors hover:text-primary'
-                                : 'flex text-base items-center cursor-pointer px-[25px] py-[10px] hover:bg-[white] hover:text-primary'
-                        }
-                        onClick={() => {
-                            router.refresh()
-                            router.push('/settings')
-                        }}
-                    >
-                        <p className='flex ml-[15px] items-center'>Settings</p>
-                    </li>
-                    <li className='flex text-base items-center cursor-pointer px-[25px] py-[10px] md:bottom-[48px] md:absolute' onClick={() => handleLogout()}>
-                        <LogOutIcon fill='#fff' width='24px' height='24px' />
-                        <p className='flex ml-[15px] items-center'>Logout</p>
-                    </li>
-                </ul>
-            )}
-        </div>
+                        <ul className='w-full px-8 mt-[10px] pb-8 flex flex-col gap-y-2'>
+                            <li
+                                className={
+                                    pathname === '/dashboard'
+                                        ? 'text-base cursor-pointer text-primary px-[25px] py-[10px] bg-[white] hover:bg-[white] font-medium transition-colors hover:text-primary'
+                                        : 'flex text-base items-center cursor-pointer px-[25px] py-[10px] hover:bg-[white] hover:text-primary'
+                                }
+                                onClick={() => {
+                                    router.refresh()
+                                    router.push('/dashboard')
+                                }}
+                            >
+                                <p className='flex ml-[15px] items-center'>Dashboard</p>
+                            </li>
+                            <li
+                                className={
+                                    pathname === '/projects'
+                                        ? 'text-base cursor-pointer text-primary px-[25px] py-[10px] bg-[white] hover:bg-[white] font-medium transition-colors hover:text-primary'
+                                        : 'flex text-base items-center cursor-pointer px-[25px] py-[10px] hover:bg-[white] hover:text-primary'
+                                }
+                                onClick={() => {
+                                    router.refresh()
+                                    router.push('/projects')
+                                }}
+                            >
+                                <p className='flex ml-[15px] items-center'>Projects</p>
+                            </li>
+                            <li
+                                className={
+                                    pathname === '/settings'
+                                        ? 'text-base cursor-pointer text-primary px-[25px] py-[10px] bg-[white] hover:bg-[white] font-medium transition-colors hover:text-primary'
+                                        : 'flex text-base items-center cursor-pointer px-[25px] py-[10px] hover:bg-[white] hover:text-primary'
+                                }
+                                onClick={() => {
+                                    router.refresh()
+                                    router.push('/settings')
+                                }}
+                            >
+                                <p className='flex ml-[15px] items-center'>Settings</p>
+                            </li>
+                            <li className='flex text-base items-center cursor-pointer px-[25px] py-[10px] md:bottom-[48px] md:absolute' onClick={() => handleLogout()}>
+                                <LogOutIcon fill='#fff' width='24px' height='24px' />
+                                <p className='flex ml-[15px] items-center'>Logout</p>
+                            </li>
+                        </ul>
+                    </motion.aside>
+                )}
+            </AnimatePresence>
+        </div >
     )
 }
